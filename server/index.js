@@ -8,7 +8,7 @@ import router from "./routes/index.js"
 import dotenv from "dotenv"
 import { app } from "./socket/index.js"
 import server from "./socket/index.js"
-
+import mongoose from "mongoose";
 
 
 dotenv.config();
@@ -25,8 +25,20 @@ app.use(cookieParser());
 
 app.use('/api/v1',router);
 
-
-connectDB();
+const dbConnection =() => {
+   
+    mongoose.connect(process.env.MONGO_URI,{
+  
+     dbName:"CHATAPP"
+    }).then(()=>{
+       console.log("Database Connected");
+    }).catch((err)=>{
+  
+        console.log(`SOME ERROR OCCURED WHILE CONNECTING TO DATABASE:${err}`);
+     })
+  }
+// connectDB();
+dbConnection();
 
 const PORT = process.env.PORT || 8080
 server.listen(PORT,()=>{
