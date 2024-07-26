@@ -14,7 +14,7 @@ import mongoose from "mongoose";
 dotenv.config();
 
 app.use(cors({
-    origin:process.env.FRONTEND_URL,
+    origin:true,
     credentials:true,
 
     })
